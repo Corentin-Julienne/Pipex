@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 14:55:15 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/26 14:27:01 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/05/12 00:00:17 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	handle_slashes_prbl(t_vars *vars, char **paths_v2)
 	free_split(vars->paths);
 	close_in_and_out(vars->fd_in, vars->fd_out);
 	free(vars);
-	ft_putstr_fd("pipex : unsuccesful memory allocation\n", STDERR_FILENO);
+	ft_putstr_fd("pipex : Unable to allocate memory\n", STDERR_FILENO);
 	exit(EXIT_FAILURE);
 }
 
@@ -59,7 +59,7 @@ char	**paths_with_slash(t_vars *vars)
 	{
 		free_split(vars->paths);
 		free(vars);
-		ft_putstr_fd("pipex : unsuccesful memory allocation\n", STDERR_FILENO);
+		ft_putstr_fd("pipex: Unable to allocate memory\n", STDERR_FILENO);
 		exit(EXIT_FAILURE);
 	}
 	vars->i = 0;
@@ -68,29 +68,37 @@ char	**paths_with_slash(t_vars *vars)
 	return (paths_v2);
 }
 
+static void no_path_in_env(t_vars *vars)
+{
+	free(vars);
+	ft_putstr_fd("pipex: There is no path present in the env\n",
+		STDERR_FILENO);
+	exit(EXIT_FAILURE);
+}
+
 char	**recup_paths(t_vars *vars)
 {
 	char	**paths;
-	char	**env;
-	char	*paths_str;
-	size_t	i;
+	char	*path_str;
 
-	env = vars->env;
-	i = 0;
-	while (env[i])
+	vars->i = 0;
+	path_str = NULL;
+	while (vars->env[vars->i])
 	{
-		if (!ft_strncmp(env[i], "PATH=", 5))
+		if (!ft_strncmp(vars->env[vars->i], "PATH=", 5))
 		{
-			paths_str = env[i] + 5;
+			path_str = vars->env[vars->i] + 5;
 			break ;
 		}
-		i++;
+		vars->i++;
 	}
-	paths = ft_split(paths_str, ':');
+	if (!path_str)
+		no_path_in_env(vars);
+	paths = ft_split(path_str, ':');
 	if (!paths)
 	{
 		free(vars);
-		ft_putstr_fd("pipex : unsuccesful memory allocation\n", STDERR_FILENO);
+		ft_putstr_fd("pipex: Unable to allocate memory\n", STDERR_FILENO);
 		exit(EXIT_FAILURE);
 	}
 	return (paths);

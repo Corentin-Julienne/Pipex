@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 14:52:54 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/05/11 17:51:07 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/05/11 23:37:08 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,6 @@ void	cleaner(t_vars *vars)
 		free(vars->pids);
 	close_in_and_out(vars->fd_in, vars->fd_out);
 	free(vars);
-}
-
-// wip !!!!!!!!
-
-void	child_cleaner(t_vars *vars)
-{
-	free(vars);
-	exit(EXIT_FAILURE);
 }
 
 /* in case of syscall failure : exit, clear malloqued elems and print err msg

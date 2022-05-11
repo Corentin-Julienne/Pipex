@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:28:30 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/05/11 17:44:07 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/05/12 00:10:24 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,10 @@ static char	*join_cmd_to_path(t_vars *vars, char **cmd_args, int i)
 	path = ft_strjoin(vars->new_paths[i], cmd_args[0]);
 	if (!path)
 	{
+		ft_putstr_fd("pipex : Unable to allocate memory\n", STDERR_FILENO);
 		free_split(cmd_args);
-		child_cleaner(vars);
+		cleaner(vars);
+		exit(EXIT_FAILURE);
 	}
 	return (path);
 }
@@ -89,7 +91,10 @@ void	cmd_exec(t_vars *vars, char *cmd)
 
 	cmd_args = ft_split(cmd, ' ');
 	if (!cmd_args)
-		child_cleaner(vars);
+	{
+		cleaner(vars);
+		exit(EXIT_FAILURE);
+	}
 	vars->i = 0;
 	while (vars->new_paths[vars->i])
 	{

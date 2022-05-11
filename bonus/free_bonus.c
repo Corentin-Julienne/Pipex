@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 14:52:54 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/26 14:21:01 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/05/12 00:03:36 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	cleaner(t_vars *vars)
 	free(vars);
 }
 
-void	child_cleaner(t_vars *vars)
+void	child_cleaner(t_vars *vars) // see if useful ???
 {
 	free_split(vars->new_paths);
 	free(vars->pids);
@@ -59,13 +59,7 @@ void	free_problem_split(char **split, int i)
 void	close_in_and_out(int fd_in, int fd_out)
 {	
 	if (fd_in != -1)
-	{
-		if (close(fd_in) == -1)
-			perror("pipex fd_in");
-	}
+		close(fd_in);
 	if (fd_out != -1)
-	{
-		if (close(fd_out) == -1)
-			perror("pipex fd_out");
-	}
+		close(fd_out);
 }

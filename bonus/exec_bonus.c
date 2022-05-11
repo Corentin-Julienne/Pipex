@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:28:30 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/26 14:19:58 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/05/12 00:10:03 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 static void	handle_access_denied(char *path_with_cmd,
 	t_vars *vars, char **cmd_args)
 {
-	perror("pipex");
+	ft_putstr_fd("pipex: ", STDERR_FILENO);
+	ft_putstr_fd(path_with_cmd, STDERR_FILENO);
+	ft_putstr_fd(" : Permission denied\n", STDERR_FILENO);
 	free_split(cmd_args);
 	free(path_with_cmd);
 	cleaner(vars);
@@ -50,8 +52,9 @@ static char	*join_cmd_to_path(t_vars *vars, char **cmd_args, int i)
 	path = ft_strjoin(vars->new_paths[i], cmd_args[0]);
 	if (!path)
 	{
-		cleaner(vars);
+		ft_putstr_fd("pipex : Unable to allocate memory\n", STDERR_FILENO);
 		free_split(cmd_args);
+		cleaner(vars);
 		exit(EXIT_FAILURE);
 	}
 	return (path);
@@ -72,8 +75,6 @@ static void	display_cmd_not_found(char **cmd_args)
 		ft_putstr_fd("\n", STDERR_FILENO);
 	}
 }
-
-/* cmd_exec is executed only within child processes */
 
 void	cmd_exec(t_vars *vars, char *cmd)
 {

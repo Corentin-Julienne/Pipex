@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 13:40:38 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/27 17:37:57 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/05/11 23:28:32 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ static void	init_pids_arr(t_vars *vars)
 
 	pids = (pid_t *)malloc(sizeof(pid_t) * 2);
 	if (!pids)
-	{
-		close_in_and_out(vars->fd_in, vars->fd_out);
 		manage_syscall_err(vars);
-	}
 	vars->pids = pids;
 }
 

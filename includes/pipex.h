@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 13:39:06 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/05/11 18:09:17 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/05/11 23:40:11 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 # define PIPEX_H
 
 # include "../libft/libft.h"
-# include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
-# include <string.h>
+# include <stdio.h>
 
 # define IN			0
 # define OUT		1
@@ -51,7 +50,6 @@ void	close_in_and_out(int fd_in, int fd_out);
 
 /* free.c */
 
-void	child_cleaner(t_vars *vars);
 void	cleaner(t_vars *vars);
 void	manage_syscall_err(t_vars *vars);
 void	free_split(char **split);
@@ -65,10 +63,6 @@ void	init_struct(t_vars *vars, char **av, char **env);
 
 char	**paths_with_slash(t_vars *vars);
 char	**recup_paths(t_vars *vars);
-
-/* pipes.c */
-
-void	pipes_activation(t_vars *vars, int num_pipes);
 
 /* redir.c */
 

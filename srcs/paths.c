@@ -6,19 +6,19 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 14:55:15 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/05/11 17:37:10 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/05/11 23:55:04 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-static void	handle_slashes_prbl(t_vars *vars, char **paths_v2) // pb with fds
+static void	handle_slashes_prbl(t_vars *vars, char **paths_v2)
 {
 	free_problem_split(paths_v2, vars->i);
 	free_split(vars->paths);
 	close_in_and_out(vars->fd_in, vars->fd_out);
 	free(vars);
-	ft_putstr_fd("pipex : unable to allocate memory\n", STDERR_FILENO);
+	ft_putstr_fd("pipex : Unable to allocate memory\n", STDERR_FILENO);
 	exit(EXIT_FAILURE);
 }
 

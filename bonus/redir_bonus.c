@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 15:42:32 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/26 14:28:05 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/05/11 23:48:40 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	wait_process_and_exit_status(t_vars *vars, int iter)
 	if (waitpid(vars->pids[iter], &waitpid_status, 0) == -1)
 	{
 		cleaner(vars);
-		perror("pipex");
+		perror("pipex :");
 		exit(EXIT_FAILURE);
 	}
 	if (WIFEXITED(waitpid_status) && iter == 1)
@@ -34,7 +34,7 @@ void	redirection(t_vars *vars, char *cmd, int iter)
 	vars->pids[iter] = fork();
 	if (vars->pipes[iter] == -1)
 	{
-		perror("pipex");
+		perror("pipex :");
 		cleaner(vars);
 		exit(EXIT_FAILURE);
 	}

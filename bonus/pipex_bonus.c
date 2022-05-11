@@ -6,26 +6,27 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 13:31:34 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/26 15:18:37 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/05/11 23:53:18 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex_bonus.h"
 
-static void	file_opener(t_vars *vars, int type, int ac) // ok
+static void	file_opener(t_vars *vars, int type, int ac)
 {	
 	if (type == IN)
 	{
 		if (access(vars->av[1], F_OK) != 0)
 		{
-			perror("pipex: ");
-			cleaner(vars);
-			exit(EXIT_FAILURE);
+			ft_putstr_fd("pipex: ", STDERR_FILENO);
+			ft_putstr_fd(vars->av[1], STDERR_FILENO);
+			ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
 		}
 		vars->fd_in = open(vars->av[1], O_RDONLY);
 	}
 	else
-		vars->fd_out = open(vars->av[ac - 1], O_RDWR | O_CREAT | O_TRUNC, 0644);
+		vars->fd_out = open(vars->av[ac - 1],
+			O_RDWR | O_CREAT | O_TRUNC, 0644);
 }
 
 static int	pipex(t_vars *vars)
@@ -56,19 +57,7 @@ static int	handle_fds(t_vars *vars, int ac)
 	int			rtn_code;
 
 	file_opener(vars, IN, ac);
-	if (vars->fd_in == -1)
-	{
-		perror("pipex");
-		cleaner(vars);
-		exit(EXIT_FAILURE);
-	}
 	file_opener(vars, OUT, ac);
-	if (vars->fd_out == -1)
-	{
-		perror("pipex");
-		cleaner(vars);
-		exit(EXIT_FAILURE);
-	}
 	rtn_code = pipex(vars);
 	return (rtn_code);
 }

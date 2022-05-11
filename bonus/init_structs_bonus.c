@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 13:40:38 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/26 14:25:55 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/05/12 00:02:28 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	init_pids_arr(t_vars *vars)
 	if (!pids)
 	{
 		cleaner(vars);
-		ft_putstr_fd("pipex : unsuccesful memory allocation\n", STDERR_FILENO);
+		ft_putstr_fd("pipex : Unable to allocate memory\n", STDERR_FILENO);
 		exit(EXIT_FAILURE);
 	}
 	vars->pids = pids;

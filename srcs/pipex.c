@@ -6,16 +6,11 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 13:31:34 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/05/11 18:14:16 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/05/11 23:39:53 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
-
-static void	leaks_killer(void)
-{
-	system("leaks pipex");
-}
 
 static void	file_opener(t_vars *vars, int type)
 {	

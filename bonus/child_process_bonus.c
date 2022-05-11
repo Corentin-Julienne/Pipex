@@ -6,46 +6,83 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 15:40:57 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/26 14:58:36 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/05/12 00:37:01 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex_bonus.h"
 
+// static void	first_redir(t_vars *vars)
+// {
+// 	if (dup2(vars->pipes[1], STDOUT_FILENO) == -1)
+// 	{
+// 		child_cleaner(vars);
+// 		perror("pipex");
+// 		exit(EXIT_FAILURE);
+// 	}
+// 	if (dup2(vars->fd_in, STDIN_FILENO) == -1)
+// 	{
+// 		child_cleaner(vars);
+// 		perror("pipex");
+// 		exit(EXIT_FAILURE);
+// 	}
+// 	if (close(vars->fd_in) == -1)
+// 		perror("pipex");
+// }
+
+// static void	last_redir(t_vars *vars, int iter)
+// {
+// 	if (dup2(vars->pipes[(iter * 2) - 2], STDIN_FILENO) == -1)
+// 	{
+// 		child_cleaner(vars);
+// 		perror("pipex");
+// 		exit(EXIT_FAILURE);
+// 	}
+// 	if (dup2(vars->fd_out, STDOUT_FILENO) == -1)
+// 	{
+// 		child_cleaner(vars);
+// 		perror("pipex");
+// 		exit(EXIT_FAILURE);
+// 	}
+// 	if (close(vars->fd_out) == -1)
+// 		perror("pipex");
+// }
+
+// static void	smart_dup2(t_vars *vars, int iter)
+// {
+// 	if (iter == 0)
+// 		first_redir(vars);
+// 	else if (iter == vars->num_of_pipes)
+// 		last_redir(vars, iter);
+// 	else
+// 	{
+// 		if (dup2(vars->pipes[(iter * 2) - 2], STDIN_FILENO) == -1)
+// 		{
+// 		child_cleaner(vars);
+// 		perror("pipex");
+// 		exit(EXIT_FAILURE);
+// 		}
+// 		if (dup2(vars->pipes[(iter * 2) + 1], STDOUT_FILENO) == -1)
+// 		{
+// 		child_cleaner(vars);
+// 		perror("pipex");
+// 		exit(EXIT_FAILURE);
+// 		}
+// 	}
+// }
+
 static void	first_redir(t_vars *vars)
 {
-	if (dup2(vars->pipes[1], STDOUT_FILENO) == -1)
-	{
-		child_cleaner(vars);
-		perror("pipex");
-		exit(EXIT_FAILURE);
-	}
-	if (dup2(vars->fd_in, STDIN_FILENO) == -1)
-	{
-		child_cleaner(vars);
-		perror("pipex");
-		exit(EXIT_FAILURE);
-	}
-	if (close(vars->fd_in) == -1)
-		perror("pipex");
+	dup2(vars->pipes[1], STDOUT_FILENO);
+	dup2(vars->fd_in, STDIN_FILENO);
+	close(vars->fd_in);
 }
 
 static void	last_redir(t_vars *vars, int iter)
 {
-	if (dup2(vars->pipes[(iter * 2) - 2], STDIN_FILENO) == -1)
-	{
-		child_cleaner(vars);
-		perror("pipex");
-		exit(EXIT_FAILURE);
-	}
-	if (dup2(vars->fd_out, STDOUT_FILENO) == -1)
-	{
-		child_cleaner(vars);
-		perror("pipex");
-		exit(EXIT_FAILURE);
-	}
-	if (close(vars->fd_out) == -1)
-		perror("pipex");
+	dup2(vars->pipes[(iter * 2) - 2], STDIN_FILENO);
+	dup2(vars->fd_out, STDOUT_FILENO);
+	close(vars->fd_out);
 }
 
 static void	smart_dup2(t_vars *vars, int iter)
@@ -56,18 +93,8 @@ static void	smart_dup2(t_vars *vars, int iter)
 		last_redir(vars, iter);
 	else
 	{
-		if (dup2(vars->pipes[(iter * 2) - 2], STDIN_FILENO) == -1)
-		{
-		child_cleaner(vars);
-		perror("pipex");
-		exit(EXIT_FAILURE);
-		}
-		if (dup2(vars->pipes[(iter * 2) + 1], STDOUT_FILENO) == -1)
-		{
-		child_cleaner(vars);
-		perror("pipex");
-		exit(EXIT_FAILURE);
-		}
+		dup2(vars->pipes[(iter * 2) - 2], STDIN_FILENO);
+		dup2(vars->pipes[(iter * 2) + 1], STDOUT_FILENO);
 	}
 }
 
@@ -79,19 +106,13 @@ void	close_useless_pipes(t_vars *vars, int iter)
 	while (iter == 0 && i < vars->num_of_pipes * 2)
 	{
 		if (i != 1)
-		{
-			if (close(vars->pipes[i]) == -1)
-				perror("close"); // handle error
-		}
+			close(vars->pipes[i]);
 		i++;
 	}
 	while (iter > 0 && i < vars->num_of_pipes * 2)
 	{
 		if (i != ((iter * 2) - 2) && i != ((iter * 2) + 1))
-		{
-			if (close(vars->pipes[i]) == -1)
-				perror("close"); // handle error
-		}
+			close(vars->pipes[i]);
 		i++;
 	}
 }
