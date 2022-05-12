@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 10:55:41 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/05/11 23:55:42 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/05/12 01:59:09 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	pipes_activation(t_vars *vars, int num_pipes)
 {
 	int		i;
-	
+
 	vars->pipes = (int *)malloc(sizeof(int) * vars->num_of_pipes * 2);
 	if (!vars->pipes)
 	{

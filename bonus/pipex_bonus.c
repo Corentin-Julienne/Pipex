@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 13:31:34 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/05/11 23:53:18 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/05/12 01:59:53 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ static void	file_opener(t_vars *vars, int type, int ac)
 	}
 	else
 		vars->fd_out = open(vars->av[ac - 1],
-			O_RDWR | O_CREAT | O_TRUNC, 0644);
+				O_RDWR | O_CREAT | O_TRUNC, 0644);
 }
 
 static int	pipex(t_vars *vars)
 {	
 	int			rtn_code;
-	
+
 	pipes_activation(vars, vars->num_of_pipes);
 	vars->cmds_used = 0;
 	while (vars->cmds_used < vars->num_cmds)

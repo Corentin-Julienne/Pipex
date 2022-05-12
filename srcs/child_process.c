@@ -6,34 +6,30 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:27:00 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/05/11 17:48:42 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/05/12 01:50:25 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
+/* in the first redir, we can see that if vars->fd_in does not exist
+,then we need to return an EXIT_FAILURE to avoid waitpid to wait forever */
+
 static void	first_redir(t_vars *vars)
 {
-	if (dup2(vars->pipes[1], STDOUT_FILENO) == -1)
-		manage_syscall_err(vars);
-	if (close(vars->pipes[1]) == -1)
-		manage_syscall_err(vars);
+	dup2(vars->pipes[1], STDOUT_FILENO);
+	close(vars->pipes[1]);
 	if (dup2(vars->fd_in, STDIN_FILENO) == -1)
 		manage_syscall_err(vars);
-	if (close(vars->fd_in) == -1)
-		manage_syscall_err(vars);
+	close(vars->fd_in);
 }
 
 static void	last_redir(t_vars *vars)
 {
-	if (dup2(vars->pipes[0], STDIN_FILENO) == -1)
-		manage_syscall_err(vars);
-	if (close(vars->pipes[0]) == -1)
-		manage_syscall_err(vars);
-	if (dup2(vars->fd_out, STDOUT_FILENO) == -1)
-		manage_syscall_err(vars);
-	if (close(vars->fd_out) == -1)
-		manage_syscall_err(vars);
+	dup2(vars->pipes[0], STDIN_FILENO);
+	close(vars->pipes[0]);
+	dup2(vars->fd_out, STDOUT_FILENO);
+	close(vars->fd_out);
 }
 
 static void	smart_dup2(t_vars *vars, int iter)

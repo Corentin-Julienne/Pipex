@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 13:23:50 by cjulienn          #+#    #+#             */
-/*   Updated: 2021/09/03 15:53:45 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/05/12 01:57:55 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_parse
 	int			i;
 }				t_parse;
 
-# ifndef	BUFFER_SIZE
+# ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 32
 # endif
 

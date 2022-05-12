@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 14:55:15 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/05/11 23:55:04 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/05/12 01:57:31 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ in order to strjoin it later with the cmd */
 static void	add_slashes(t_vars *vars, char **paths_v2)
 {
 	char	*tmp;
-	
+
 	while (vars->paths[vars->i])
 	{
 		paths_v2[vars->i] = ft_strdup(vars->paths[vars->i]);
@@ -71,7 +71,7 @@ char	**paths_with_slash(t_vars *vars)
 	return (paths_v2);
 }
 
-static void no_path_in_env(t_vars *vars)
+static void	no_path_in_env(t_vars *vars)
 {
 	free(vars);
 	ft_putstr_fd("pipex: There is no path present in the env\n",

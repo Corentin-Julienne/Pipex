@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 15:40:57 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/05/12 00:37:01 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/05/12 01:59:24 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,10 @@ static void	smart_dup2(t_vars *vars, int iter)
 	}
 }
 
-void	close_useless_pipes(t_vars *vars, int iter)
+static void	close_useless_pipes(t_vars *vars, int iter)
 {
 	int			i;
-	
+
 	i = 0;
 	while (iter == 0 && i < vars->num_of_pipes * 2)
 	{

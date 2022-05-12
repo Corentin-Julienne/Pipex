@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 13:39:06 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/26 15:16:23 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/05/12 01:03:18 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <sys/types.h>
 # include <stdlib.h>
 # include <fcntl.h>
-# include <string.h>
 
 # define IN		0
 # define OUT	1
@@ -52,7 +51,6 @@ void	cmd_exec(t_vars *vars, char *cmd);
 /* free_bonus.c */
 
 void	cleaner(t_vars *vars);
-void	child_cleaner(t_vars *vars);
 void	free_split(char **split);
 void	free_problem_split(char **split, int i);
 void	close_in_and_out(int fd_in, int fd_out);
