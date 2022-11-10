@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 13:39:06 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/05/12 01:03:18 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/05/12 03:02:22 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	cmd_exec(t_vars *vars, char *cmd);
 
 /* free_bonus.c */
 
+void	manage_syscall_err(t_vars *vars);
 void	cleaner(t_vars *vars);
 void	free_split(char **split);
 void	free_problem_split(char **split, int i);

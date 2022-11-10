@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:28:30 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/05/12 00:10:03 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/05/12 03:02:45 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,6 @@ void	cmd_exec(t_vars *vars, char *cmd)
 	}
 	display_cmd_not_found(cmd_args);
 	free_split(cmd_args);
-	child_cleaner(vars);
+	cleaner(vars);
 	exit(127);
 }

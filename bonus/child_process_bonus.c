@@ -6,75 +6,17 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 15:40:57 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/05/12 01:59:24 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/05/12 02:52:27 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex_bonus.h"
 
-// static void	first_redir(t_vars *vars)
-// {
-// 	if (dup2(vars->pipes[1], STDOUT_FILENO) == -1)
-// 	{
-// 		child_cleaner(vars);
-// 		perror("pipex");
-// 		exit(EXIT_FAILURE);
-// 	}
-// 	if (dup2(vars->fd_in, STDIN_FILENO) == -1)
-// 	{
-// 		child_cleaner(vars);
-// 		perror("pipex");
-// 		exit(EXIT_FAILURE);
-// 	}
-// 	if (close(vars->fd_in) == -1)
-// 		perror("pipex");
-// }
-
-// static void	last_redir(t_vars *vars, int iter)
-// {
-// 	if (dup2(vars->pipes[(iter * 2) - 2], STDIN_FILENO) == -1)
-// 	{
-// 		child_cleaner(vars);
-// 		perror("pipex");
-// 		exit(EXIT_FAILURE);
-// 	}
-// 	if (dup2(vars->fd_out, STDOUT_FILENO) == -1)
-// 	{
-// 		child_cleaner(vars);
-// 		perror("pipex");
-// 		exit(EXIT_FAILURE);
-// 	}
-// 	if (close(vars->fd_out) == -1)
-// 		perror("pipex");
-// }
-
-// static void	smart_dup2(t_vars *vars, int iter)
-// {
-// 	if (iter == 0)
-// 		first_redir(vars);
-// 	else if (iter == vars->num_of_pipes)
-// 		last_redir(vars, iter);
-// 	else
-// 	{
-// 		if (dup2(vars->pipes[(iter * 2) - 2], STDIN_FILENO) == -1)
-// 		{
-// 		child_cleaner(vars);
-// 		perror("pipex");
-// 		exit(EXIT_FAILURE);
-// 		}
-// 		if (dup2(vars->pipes[(iter * 2) + 1], STDOUT_FILENO) == -1)
-// 		{
-// 		child_cleaner(vars);
-// 		perror("pipex");
-// 		exit(EXIT_FAILURE);
-// 		}
-// 	}
-// }
-
 static void	first_redir(t_vars *vars)
 {
 	dup2(vars->pipes[1], STDOUT_FILENO);
-	dup2(vars->fd_in, STDIN_FILENO);
+	if (dup2(vars->fd_in, STDIN_FILENO) == -1)
+		manage_syscall_err(vars);
 	close(vars->fd_in);
 }
 
